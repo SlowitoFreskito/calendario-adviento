@@ -1,0 +1,18 @@
+AQUÍ VAN LOS REGALOS SIN CIFRAR. ESTA CARPETA NO SE SUBE A INTERNET.
+
+1. Pon un archivo por día con el número como nombre:
+     1.jpg, 2.mp4, 3.mp3, 4.pdf, 5.txt ... 28.png
+   (fotos, vídeos, audios, PDF o textos; vale cualquier extensión normal)
+
+2. Opcional: crea "textos.json" para poner título y mensaje a algún día:
+     {
+       "5":  { "titulo": "Nuestro primer viaje", "mensaje": "¿Te acuerdas?" },
+       "28": { "titulo": "Año y medio juntos" }
+     }
+   Un día puede tener solo mensaje, sin archivo.
+
+3. Haz doble clic en "cifrar-regalos.cmd" (en la carpeta del proyecto)
+   y escribe la contraseña de la web. Se generan los archivos cifrados
+   en la carpeta "recompensas".
+
+Cada vez que cambies algo aquí, vuelve a ejecutar "cifrar-regalos.cmd".

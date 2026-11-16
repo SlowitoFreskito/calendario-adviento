@@ -1,0 +1,6 @@
+# Los regalos sin cifrar NUNCA se suben (solo las instrucciones)
+regalos-originales/*
+!regalos-originales/LEEME.txt
+
+# Configuración local
+.claude/

@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#36bcae">
+  <title>Calendario de Adviento hasta el 28/12/2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..800,100;1,9..144,300..800,100&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20">
+</head>
+<body class="con-acceso">
+  <!-- Pantalla de entrada con contraseña -->
+  <div class="acceso" id="acceso" role="dialog" aria-modal="true" aria-labelledby="accesoTitulo">
+    <form class="acceso-caja" id="accesoForm" autocomplete="off">
+      <svg class="acceso-candado" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M20 28V20a12 12 0 0 1 24 0v8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        <rect x="12" y="27" width="40" height="30" rx="7" fill="var(--coral)"/>
+        <path d="M32 50 c-6-4-10-7-10-11 c0-3 2-5 5-5 c2 0 4 1 5 3 c1-2 3-3 5-3 c3 0 5 2 5 5 c0 4-4 7-10 11z" fill="var(--arena)"/>
+      </svg>
+      <h1 id="accesoTitulo">Calendario de Adviento</h1>
+      <p class="acceso-texto">Este calendario es solo para una persona. Escribe la contraseña para entrar.</p>
+      <label class="acceso-etiqueta" for="accesoClave">Contraseña</label>
+      <input class="acceso-campo" id="accesoClave" type="password" inputmode="numeric" autocomplete="current-password" required>
+      <p class="acceso-error" id="accesoError" role="alert"></p>
+      <button class="acceso-boton" type="submit">Entrar</button>
+    </form>
+  </div>
+  <button class="disponibles" id="disponibles" type="button" aria-live="polite">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="9" width="18" height="12" rx="2" fill="currentColor"/>
+      <rect x="2" y="6.5" width="20" height="4" rx="1.5" fill="currentColor"/>
+      <rect x="10.8" y="6.5" width="2.4" height="14.5" fill="var(--coral)"/>
+      <path d="M12 6.5C10.5 3 7 3 7 5s3 1.5 5 1.5zM12 6.5C13.5 3 17 3 17 5s-3 1.5-5 1.5z" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    </svg>
+    <strong id="disponiblesNumero">0</strong>
+    <span id="disponiblesTexto">sin abrir</span>
+  </button>
+
+  <header class="cabecera">
+    <h1>Calendario de Adviento</h1>
+    <p class="subtitulo">hasta el 28/12/2026</p>
+
+    <!-- Buzón con la carta de bienvenida -->
+    <button class="buzon" id="buzon" type="button" aria-haspopup="dialog">
+      <svg class="buzon-dibujo" viewBox="0 0 140 150" aria-hidden="true">
+        <!-- poste -->
+        <rect x="62" y="88" width="16" height="62" rx="3" class="buzon-poste"/>
+        <!-- cuerpo del buzón -->
+        <path d="M14 92 V58 A56 34 0 0 1 126 58 V92 Z" class="buzon-cuerpo"/>
+        <path d="M24 92 V60 A46 26 0 0 1 116 60 V92" class="buzon-puerta"/>
+        <!-- sobre que asoma por la ranura -->
+        <g class="buzon-sobre">
+          <rect x="44" y="18" width="52" height="38" rx="3" class="sobre-papel"/>
+          <path d="M44 21 L70 38 L96 21" class="sobre-linea"/>
+          <path d="M70 34 c-2-4-8-3-8 1 c0 4 8 8 8 8 s8-4 8-8 c0-4-6-5-8-1z" transform="translate(0 4)" class="sobre-corazon"/>
+        </g>
+        <rect x="40" y="54" width="60" height="7" rx="3.5" class="buzon-ranura"/>
+        <!-- bandera -->
+        <g class="buzon-bandera">
+          <rect x="124" y="40" width="5" height="44" rx="2"/>
+          <rect x="124" y="40" width="20" height="14" rx="2" class="bandera-tela"/>
+        </g>
+      </svg>
+      <span class="buzon-texto" id="buzonTexto">Tienes una carta</span>
+    </button>
+
+    <p class="cuenta-titulo" id="cuentaTitulo"></p>
+    <div class="cuenta-atras" id="cuenta" aria-live="off">
+      <div><strong id="cDias">0</strong><span>días</span></div>
+      <div><strong id="cHoras">0</strong><span>horas</span></div>
+      <div><strong id="cMin">0</strong><span>min</span></div>
+      <div><strong id="cSeg">0</strong><span>seg</span></div>
+    </div>
+    <p class="pista" id="pista"></p>
+  </header>
+
+  <main>
+    <section class="cajas" id="cajas" aria-label="Las 28 cajas hasta nuestro aniversario"></section>
+  </main>
+
+  <footer class="pie">
+    <p>Una caja cada 24 horas, hasta el 28.</p>
+  </footer>
+
+  <!-- La carta -->
+  <div class="carta-modal" id="cartaModal" role="dialog" aria-modal="true" aria-label="Carta de bienvenida" hidden>
+    <div class="carta-fondo" data-cerrar-carta></div>
+    <div class="carta-escena" id="cartaEscena">
+      <div class="sobre-trasera"></div>
+      <div class="sobre-frente"></div>
+      <div class="sobre-solapa"></div>
+    </div>
+    <article class="carta" id="carta" tabindex="-1">
+        <button class="carta-cerrar" data-cerrar-carta aria-label="Cerrar la carta">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <p class="carta-saludo">Hola, mi vida:</p>
+        <p>Bienvenido a tu calendario de adviento. En este calendario tendrás un regalo cada día hasta que hagamos nuestro año y medio.</p>
+        <p>Si algún día se te pasa abrir uno, no te preocupes, porque son acumulables y podrás abrir seguidos los que acumules.</p>
+        <p>Disfrútalo, que lo he hecho con mucho cariño, y sé paciente.</p>
+        <p class="carta-firma">Te amo mucho, mucho, mucho.</p>
+    </article>
+  </div>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo" hidden>
+    <div class="modal-fondo" data-cerrar></div>
+    <div class="modal-hoja">
+      <button class="modal-cerrar" data-cerrar aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <p class="modal-fecha" id="modalFecha"></p>
+      <h2 id="modalTitulo"></h2>
+      <div class="modal-contenido" id="modalContenido"></div>
+    </div>
+  </div>
+
+  <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+
+  <script src="recompensas/lista.js?v=20"></script>
+  <script src="app.js?v=20"></script>
+</body>
+</html>
